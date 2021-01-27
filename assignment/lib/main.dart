@@ -5,21 +5,38 @@
 
 import 'package:flutter/material.dart';
 
+import 'package:assignment/text.dart';
+import 'package:assignment/textControl.dart';
+
 void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  int ind = 0;
+
+  int _indSet() {
+    setState(() {
+      ind == 0 ? ind = 1 : ind = 0;
+    });
+    print(ind);
+    return ind;
+  }
+
+  final texts = ['This is first', 'This is second'];
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Assignment1'),
+          title: Text('Assignment 1'),
         ),
-        body: Text(
-          'this is a sample Text',
-          style: TextStyle(fontSize: 25),
-          textAlign: TextAlign.center,
-        ),
+        body: Textclass(texts[ind]),
+        bottomNavigationBar: TextControl(_indSet),
       ),
     );
   }
