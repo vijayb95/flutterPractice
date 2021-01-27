@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class TextControl extends StatelessWidget {
-  final Function indexSet;
-
   TextControl(this.indexSet);
+
+  final Function indexSet;
 
   @override
   Widget build(BuildContext context) {

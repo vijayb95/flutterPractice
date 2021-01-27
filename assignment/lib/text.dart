@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 // import './main.dart';
 
 class Textclass extends StatelessWidget {
-  final String out;
-
   Textclass(this.out);
+
+  final String out;
 
   @override
   Widget build(BuildContext context) {
