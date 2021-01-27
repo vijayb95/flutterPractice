@@ -31,12 +31,32 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: Text('Assignment 1'),
-        ),
-        body: Textclass(texts[ind]),
-        bottomNavigationBar: TextControl(_indSet),
-      ),
+          appBar: AppBar(
+            title: Text('Assignment 1'),
+          ),
+          // body: Textclass(texts[ind]),
+          // bottomNavigationBar: TextControl(_indSet),
+          body: Center(
+            // child: Container(
+            //   margin: const EdgeInsets.all(10),
+            //   width: 500,
+            //   height: 500,
+            //   child: Row(
+            //     children: [
+            //       Textclass(texts[ind]),
+            //       TextControl(_indSet),
+            //     ],
+            //   ),
+            // ),
+            child: Column(children: [
+              Container(margin:const EdgeInsets.all(10),
+              width: 500,
+              height: 150, 
+              child: Textclass(texts[ind]),
+              ),
+              Container(child: TextControl(_indSet),)
+            ],),
+          )),
     );
   }
 }

@@ -9,7 +9,7 @@ class TextControl extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.maxFinite,
-      child: RaisedButton(
+      child: FlatButton(
         color: Colors.blue,
         onPressed: indexSet,
         child: Text('Press here to change above Text'),
