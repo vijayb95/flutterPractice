@@ -17,6 +17,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   int ind = 0;
+  final texts = ['This is first', 'This is second'];
 
   int _indSet() {
     setState(() {
@@ -25,8 +26,6 @@ class _MyAppState extends State<MyApp> {
     print(ind);
     return ind;
   }
-
-  final texts = ['This is first', 'This is second'];
 
   @override
   Widget build(BuildContext context) {
