@@ -5,8 +5,8 @@
 
 import 'package:flutter/material.dart';
 
-import 'package:assignment/text.dart';
-import 'package:assignment/textControl.dart';
+import './text.dart';
+import './textControl.dart';
 
 void main() => runApp(MyApp());
 
