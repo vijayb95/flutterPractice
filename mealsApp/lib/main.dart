@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:mealsApp/screens/tabs_screen.dart';
 import './screens/category_meals_screen.dart';
 import './screens/categories_screen.dart';
+import './screens/meal_detail_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -27,10 +29,15 @@ class MyApp extends StatelessWidget {
                   fontWeight: FontWeight.bold),
             ),
       ),
-      home: CategoriesScreen(),
+      home:
+          TabsScreen(), // '/' in routes is alternate way to set home screen
       routes: {
+        // '/': (ctx) => CategoriesScreen(), //Alternate way to set home screen
         CategoryMealsScreen.routeName: (ctx) => CategoryMealsScreen(),
+        MealDetailScreen.routeName: (ctx) => MealDetailScreen(),
       },
+      onUnknownRoute: (settings) =>
+          MaterialPageRoute(builder: (ctx) => CategoriesScreen()),
     );
   }
 }
