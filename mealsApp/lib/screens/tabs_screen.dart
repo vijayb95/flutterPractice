@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/main_drawer.dart';
 
 import './favorites_screen.dart';
 import './categories_screen.dart';
@@ -20,22 +21,35 @@ class _TabsScreenState extends State<TabsScreen> {
     },
   ];
 
+  int _selectedIndex = 0;
+
+  void _selectPage(ind) {
+    setState(() {
+      _selectedIndex = ind;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Meal Planner'),
+        title: Text(_pages[_selectedIndex]['title']),
       ),
-      body: CategoriesScreen(),
+      drawer: MainDrawer(),
+      body: _pages[_selectedIndex]['page'],
       bottomNavigationBar: BottomNavigationBar(
-        // type: BottomNavigationBarType.fixed,
+        onTap: _selectPage,
+        backgroundColor: Theme.of(context).primaryColor,
+        unselectedItemColor: Colors.white,
+        selectedItemColor: Theme.of(context).accentColor,
+        currentIndex: _selectedIndex,
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.category),
             label: 'Categories',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.star),
+            icon: Icon(Icons.favorite),
             label: 'Favorites',
           ),
         ],

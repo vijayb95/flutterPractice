@@ -20,8 +20,8 @@ class MealDetailScreen extends StatelessWidget {
           color: Colors.white,
           border: Border.all(color: Colors.grey),
           borderRadius: BorderRadius.circular(10)),
-          margin: EdgeInsets.all(5),
-          padding: EdgeInsets.all(10),
+      margin: EdgeInsets.all(5),
+      padding: EdgeInsets.all(10),
       height: MediaQuery.of(context).size.height * 0.25,
       width: MediaQuery.of(context).size.width * 0.7,
       child: child,
@@ -71,7 +71,10 @@ class MealDetailScreen extends StatelessWidget {
                         ListTile(
                           leading: CircleAvatar(
                             backgroundColor: Theme.of(context).accentColor,
-                            child: Text('# ${index + 1}', style: Theme.of(context).textTheme.bodyText2,),
+                            child: Text(
+                              '# ${index + 1}',
+                              style: Theme.of(context).textTheme.bodyText2,
+                            ),
                           ),
                           title: Text(selectedMeal.steps[index]),
                         ),
@@ -88,6 +91,12 @@ class MealDetailScreen extends StatelessWidget {
             ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.delete),
+        onPressed: () {
+          Navigator.of(context).pop(mealId);
+        },
       ),
     );
   }
