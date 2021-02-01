@@ -11,6 +11,9 @@
     },
     {
       "path": "..\\mealsApp"
+    },
+    {
+      "path": "..\\shopApp"
     }
   ],
   "settings": {}
