@@ -6,8 +6,8 @@ import 'package:shopApp/providers/cart.dart';
 import 'package:shopApp/screens/cart_screen.dart';
 import 'package:shopApp/widgets/app_drawer.dart';
 import '../widgets/badge.dart';
-// import 'package:provider/provider.dart';
-// import 'package:shopApp/providers/products.dart';
+import 'package:provider/provider.dart';
+import 'package:shopApp/providers/products.dart';
 
 import '../widgets/products_grid.dart';
 
@@ -23,6 +23,38 @@ class ProductsOverviewScreen extends StatefulWidget {
 
 class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   bool _showOnlyFavorites = false;
+  var _isInit = true;
+  var _isLoading = false;
+
+  @override
+  void initState() {
+    // Provider.of<Products>(context, listen: false).fetchAndSetProducts(); //will not work since there won't be a context here because widget is not loaded fully before calling init
+
+    // / / /calling provider like this in initstate like below will work but not recommended.
+    // Future.delayed(Duration.zero).then((_) =>
+    //     Provider.of<Products>(context, listen: false).fetchAndSetProducts());
+
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+      _isInit = false;
+      setState(() {
+        _isLoading = true;
+      });
+      Provider.of<Products>(context, listen: false)
+          .fetchAndSetProducts()
+          .then((_) {
+        setState(() {
+          _isLoading = false;
+        });
+      });
+    }
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     // final productsContainer = Provider.of<Products>(context);
@@ -67,7 +99,11 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
         ],
       ),
       drawer: AppDrawer(),
-      body: ProductsGrid(_showOnlyFavorites),
+      body: _isLoading
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : ProductsGrid(_showOnlyFavorites),
     );
   }
 }
