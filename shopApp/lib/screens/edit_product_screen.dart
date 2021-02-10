@@ -70,12 +70,11 @@ class _EditProductScreenState extends State<EditProductScreen> {
       _isLoading = true;
     });
     if (_editedProduct.id != null) {
-      Provider.of<Products>(context, listen: false)
+      // ignore: await_only_futures, because it is needed and vscode recognized by mistake. refer lecture 247 for details.
+      await Provider.of<Products>(context, listen: false)
           .updateProducts(_editedProduct.id, _editedProduct);
-      setState(() {
-        _isLoading = false;
-      });
-      Navigator.of(context).pop();
+
+      // Navigator.of(context).pop();
     } else {
       try {
         await Provider.of<Products>(context, listen: false)
@@ -96,15 +95,19 @@ class _EditProductScreenState extends State<EditProductScreen> {
             ],
           ),
         );
-      } finally {
-        print('Came out');
-        setState(() {
-          _isLoading = false;
-        });
-        Navigator.of(context).pop();
       }
+      //  finally { //finallynot necessary since we have a common setState outside of if-else block.
+      //   print('Came out');
+      //   setState(() {
+      //     _isLoading = false;
+      //   });
+      //   Navigator.of(context).pop();
+      // }
     }
-    // Navigator.of(context).pop();
+    setState(() {
+      _isLoading = false;
+    });
+    Navigator.of(context).pop();
   }
 
   @override
