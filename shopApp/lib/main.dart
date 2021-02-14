@@ -5,6 +5,7 @@ import 'package:shopApp/screens/auth_screen.dart';
 import 'package:shopApp/screens/edit_product_screen.dart';
 import 'package:shopApp/screens/orders_screen.dart';
 import 'package:shopApp/screens/products_overview_screen.dart';
+import 'package:shopApp/screens/splash_screen.dart';
 import 'package:shopApp/screens/user_products_screen.dart';
 // import 'package:shopApp/widgets/user_product_item.dart';
 import './providers/orders.dart';
@@ -37,8 +38,8 @@ class MyApp extends StatelessWidget {
         ),
         // ignore: missing_required_param
         ChangeNotifierProxyProvider<Auth, Orders>(
-          update: (ctx, auth, previousOrders) => Orders(
-              auth.token, auth.userId, previousOrders == null ? [] : previousOrders.orders),
+          update: (ctx, auth, previousOrders) => Orders(auth.token, auth.userId,
+              previousOrders == null ? [] : previousOrders.orders),
         ),
       ],
       child: Consumer<Auth>(
@@ -49,7 +50,12 @@ class MyApp extends StatelessWidget {
             accentColor: Colors.orange,
             fontFamily: 'Lato',
           ),
-          home: auth.isAuth ? ProductsOverviewScreen() : AuthScreen(),
+          home: auth.isAuth
+              ? ProductsOverviewScreen()
+              : FutureBuilder(
+                  future: auth.tryAutoLogin(),
+                  builder: (ctx, authResultSnapshot) => authResultSnapshot.connectionState == ConnectionState.waiting ? SplashScreen() : AuthScreen(),
+                ),
           routes: {
             ProductDetailScreen.routeName: (ctx) => ProductDetailScreen(),
             CartScreen.routeName: (ctx) => CartScreen(),
