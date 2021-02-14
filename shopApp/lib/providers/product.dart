@@ -11,27 +11,38 @@ class Product with ChangeNotifier {
   final String imageUrl;
   bool isFavorite;
 
-  Product(
-      {@required this.id,
-      @required this.title,
-      @required this.description,
-      @required this.price,
-      @required this.imageUrl,
-      this.isFavorite = false});
+  Product({
+    @required this.id,
+    @required this.title,
+    @required this.description,
+    @required this.price,
+    @required this.imageUrl,
+    this.isFavorite = false,
+  });
 
-  Future<void> toggleFavoriteStatus(String id, Product newProduct) async {
-    final url =
-        'https://shop-app-6196d-default-rtdb.firebaseio.com/products/$id.json';
-    isFavorite = !isFavorite;
-    try {
-      final response = await http.patch(url,
-          body: json.encode({
-            'isFavorite': isFavorite,
-          }));
-      if (response.statusCode >= 400) isFavorite = !isFavorite;
-    } catch (e) {
-      isFavorite = !isFavorite;
-    }
+  void _setFavValue(bool newValue) {
+    isFavorite = newValue;
     notifyListeners();
+  }
+
+  Future<void> toggleFavoriteStatus(String token, String userId) async {
+    final oldStatus = isFavorite;
+    isFavorite = !isFavorite;
+    notifyListeners();
+    final url =
+        'https://shop-app-6196d-default-rtdb.firebaseio.com/userFavorites/$userId/$id.json?auth=$token';
+    try {
+      final response = await http.put(
+        url,
+        body: json.encode(
+          isFavorite,
+        ),
+      );
+      if (response.statusCode >= 400) {
+        _setFavValue(oldStatus);
+      }
+    } catch (error) {
+      _setFavValue(oldStatus);
+    }
   }
 }

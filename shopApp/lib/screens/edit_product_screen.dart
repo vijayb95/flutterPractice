@@ -72,7 +72,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
     if (_editedProduct.id != null) {
       // ignore: await_only_futures, because it is needed and vscode recognized by mistake. refer lecture 247 for details.
       await Provider.of<Products>(context, listen: false)
-          .updateProducts(_editedProduct.id, _editedProduct);
+          .updateProduct(_editedProduct.id, _editedProduct);
 
       // Navigator.of(context).pop();
     } else {
