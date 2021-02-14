@@ -105,7 +105,7 @@ class _AuthCardState extends State<AuthCard> {
   var _isLoading = false;
   final _passwordController = TextEditingController();
 
-  void _showErrorDialog(String message) {
+  void _showErrorDialog(String message, BuildContext context) {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
@@ -155,10 +155,10 @@ class _AuthCardState extends State<AuthCard> {
       } else if (error.toString().contains('EMAIL_NOT_FOUND')) {
         errorMessage = 'Could not find Username or Password';
       }
-      _showErrorDialog(errorMessage);
+      _showErrorDialog(errorMessage, context);
     } catch (error) {
       const errorMessage = 'Could not authenticate. Try again later';
-      _showErrorDialog(errorMessage);
+      _showErrorDialog(errorMessage, context);
     }
 
     setState(() {
