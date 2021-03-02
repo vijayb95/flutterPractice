@@ -25,5 +25,7 @@
       "path": "..\\myapp"
     }
   ],
-  "settings": {}
+  "settings": {
+    "java.configuration.updateBuildConfiguration": "interactive"
+  }
 }
