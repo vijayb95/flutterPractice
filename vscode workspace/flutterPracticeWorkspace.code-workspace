@@ -20,6 +20,9 @@
     },
     {
       "path": "..\\chatApp"
+    },
+    {
+      "path": "..\\myapp"
     }
   ],
   "settings": {}
